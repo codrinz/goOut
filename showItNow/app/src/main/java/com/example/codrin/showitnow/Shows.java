@@ -41,6 +41,11 @@ public class Shows extends AppCompatActivity {
         return null;
     }
 
+    public static boolean deleteShowByName(String name){
+        for (Show show:showsArray)if(show.getShowName().compareTo(name)==0)return showsArray.remove(show);
+        return false;
+    }
+
     public void openChangeShow(String showName){
         Intent intent = new Intent (Shows.this, ChangeShow.class);
         intent.putExtra("changedShow", showName);

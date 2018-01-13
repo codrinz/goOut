@@ -21,8 +21,13 @@
                 android:id="@+id/showsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Shows this week"
+                android:text="Manage Shows"
                 android:onClick="openShows"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add shows" />
 
             <Button
                 android:id="@+id/contact"

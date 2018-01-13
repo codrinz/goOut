@@ -34,6 +34,14 @@
                 android:layout_height="wrap_content"
                 android:text="Change"
                 android:onClick="changeDate"/>
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="deleteShow"
+                android:text="Delete" />
         </LinearLayout>
+
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

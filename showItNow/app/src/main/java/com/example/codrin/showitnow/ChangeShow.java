@@ -23,4 +23,9 @@ public class ChangeShow extends AppCompatActivity {
         Shows.getShowByName(showName).changeShowDate(Integer.parseInt(dayView.getText().toString())%7);
         ((BaseAdapter)Shows.listViewStatic.getAdapter()).notifyDataSetChanged();
     }
+
+    public void deleteShow(View view){
+        Shows.deleteShowByName(showName);
+        ((BaseAdapter)Shows.listViewStatic.getAdapter()).notifyDataSetChanged();
+    }
 }
