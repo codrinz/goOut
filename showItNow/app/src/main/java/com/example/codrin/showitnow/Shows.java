@@ -23,8 +23,14 @@ public class Shows extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shows2);
         Shows.listViewStatic = findViewById(R.id.showsList);
-        db.insert(getApplicationContext(),new Show("test1",2,7,50,50));
         db.getAll(getApplicationContext());
+
+        if(Shows.showsArray.isEmpty()){
+            db.insert(getApplicationContext(),new Show("test1",2,7,50,50));
+        }
+
+
+
         ArrayAdapter<Show> showsAdapter = new ArrayAdapter<Show>(this,
                 android.R.layout.simple_list_item_1, showsArray);
         ListView listView = (ListView) findViewById(R.id.showsList);
@@ -37,6 +43,7 @@ public class Shows extends AppCompatActivity {
                // Toast.makeText(SuggestionActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                 Show entry = (Show) parent.getItemAtPosition(position);
                 openChangeShow(entry.getShowName());
+                finish();
             }
         });
         while(showsArray.isEmpty()){};
@@ -59,5 +66,8 @@ public class Shows extends AppCompatActivity {
         startActivity(intent);
 
     }
-
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 }

@@ -26,7 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:focusableInTouchMode="false"/>
 
             <TextView
                 android:id="@+id/ShowDate"
@@ -37,21 +38,22 @@
             <DatePicker
                 android:id="@+id/newDate"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center"/>
 
             <Button
                 android:id="@+id/change"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="changeDate"
-                android:text="Change" />
+                android:text="Change"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="deleteShow"
-                android:text="Delete" />
+                android:text="Delete"
+                android:visibility="visible" />
         </LinearLayout>
 
     </ScrollView>

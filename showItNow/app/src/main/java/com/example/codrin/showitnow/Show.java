@@ -87,7 +87,17 @@ public class Show{
         this.showName = showName;
         this.day = day;
     }
-    
+
+    @Ignore
+    public Show(Show show){
+        this.sid = show.getSid();
+        this.showName = show.getShowName();
+        this.day = show.getDay();
+        this.month = show.getMonth();
+        this.freeSpots = show.getFreeSpots();
+        this.allSpots = show.getAllSpots();
+    }
+
     public Show(){}
     
     public String getShowName(){
@@ -108,5 +118,31 @@ public class Show{
     @Override
     public String toString() {
         return showName+" day: "+day+" month: "+month;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Show show = (Show) o;
+
+        if (sid != show.sid) return false;
+        if (day != show.day) return false;
+        if (month != show.month) return false;
+        if (freeSpots != show.freeSpots) return false;
+        if (allSpots != show.allSpots) return false;
+        return showName.equals(show.showName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = sid;
+        result = 31 * result + showName.hashCode();
+        result = 31 * result + day;
+        result = 31 * result + month;
+        result = 31 * result + freeSpots;
+        result = 31 * result + allSpots;
+        return result;
     }
 }

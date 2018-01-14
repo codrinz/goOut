@@ -22,4 +22,6 @@ public interface ShowDAO {
     void delete(Show show);
     @Update
     void update(Show show);
+    @Query("SELECT * FROM shows WHERE show_name LIKE :name LIMIT 1")
+    Show getShow(String name);
 }

@@ -20,9 +20,15 @@ public void getAll(final Context context){
     }.execute();
 }
 public void insert(final Context context, final Show show){
+    if(Shows.getShowByName(show.getShowName())!=null) {
+        System.out.println("[ERROR] tried to add a show already existing");
+        return;
+    }
+    Shows.showsArray.add(show);
     new AsyncTask<Void,Void,Void>(){
         @Override
         protected Void doInBackground(Void...voids) {
+            if(AppDatabase.getAppDatabase(context).showDAO().getShow(show.getShowName())==null);
             AppDatabase.getAppDatabase(context).showDAO().insert(show);
             getAll(context);
             return null;
@@ -30,6 +36,7 @@ public void insert(final Context context, final Show show){
     }.execute();
 }
 public void delete(final Context context, final Show show){
+    Shows.showsArray.remove(show);
     new AsyncTask<Void,Void,Void>(){
         @Override
         protected Void doInBackground(Void...voids) {
@@ -39,11 +46,15 @@ public void delete(final Context context, final Show show){
         }
     }.execute();
 }
-public void update(final Context context, final Show show){
+public void update(final Context context,final Show oldShow, final Show newShow){
+    Shows.showsArray.remove(oldShow);
+    Shows.showsArray.add(newShow);
     new AsyncTask<Void,Void,Void>(){
         @Override
         protected Void doInBackground(Void...voids) {
-            AppDatabase.getAppDatabase(context).showDAO().update(show);
+            //AppDatabase.getAppDatabase(context).showDAO().update(newShow);
+            AppDatabase.getAppDatabase(context).showDAO().delete(oldShow);
+            AppDatabase.getAppDatabase(context).showDAO().insert(newShow);
             getAll(context);
             return null;
         }

@@ -47,4 +47,9 @@ public class Contact_organizer extends AppCompatActivity {
 
         startActivity(Intent.createChooser(intent, "Send Email"));
     }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 }
