@@ -23,4 +23,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (this, Shows.class);
         startActivity(intent);
     }
+
+    public void openAddShow(View view){
+        Intent intent = new Intent (this, AddShow.class);
+        startActivity(intent);
+    }
 }

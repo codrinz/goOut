@@ -21,7 +21,9 @@
             android:label="@string/title_activity_contact_organizer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Shows" />
-        <activity android:name=".ChangeShow"></activity>
+        <activity android:name=".ChangeShow" />
+        <activity android:name=".AddShow"></activity>
+
     </application>
 
 </manifest>

@@ -1,25 +1,30 @@
 package com.example.codrin.showitnow;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Shows extends AppCompatActivity {
-    public static ArrayList<Show> showsArray = new ArrayList<>();
+    public static List<Show> showsArray = new ArrayList<>();
     public static ListView listViewStatic;
+    private DatabaseUtils db = new DatabaseUtils();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shows2);
         Shows.listViewStatic = findViewById(R.id.showsList);
-        showsArray.add(new Show("show1",7));
-
+        db.insert(getApplicationContext(),new Show("test1",2,7,50,50));
+        db.getAll(getApplicationContext());
         ArrayAdapter<Show> showsAdapter = new ArrayAdapter<Show>(this,
                 android.R.layout.simple_list_item_1, showsArray);
         ListView listView = (ListView) findViewById(R.id.showsList);
@@ -34,6 +39,8 @@ public class Shows extends AppCompatActivity {
                 openChangeShow(entry.getShowName());
             }
         });
+        while(showsArray.isEmpty()){};
+        ((BaseAdapter)Shows.listViewStatic.getAdapter()).notifyDataSetChanged();
     }
 
     public static Show getShowByName(String name){

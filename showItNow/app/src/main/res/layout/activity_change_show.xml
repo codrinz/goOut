@@ -13,27 +13,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/newDate"
+                android:id="@+id/Showname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New date" />
+                android:text="New Showname" />
 
             <EditText
-                android:id="@+id/newDateInput"
+                android:id="@+id/newShowname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
+            <TextView
+                android:id="@+id/ShowDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New date" />
+
+            <DatePicker
+                android:id="@+id/newDate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
             <Button
                 android:id="@+id/change"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Change"
-                android:onClick="changeDate"/>
+                android:onClick="changeDate"
+                android:text="Change" />
 
             <Button
                 android:id="@+id/delete"

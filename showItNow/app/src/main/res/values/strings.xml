@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">showItNow</string>
     <string name="title_activity_contact_organizer">Contact_organizer</string>
+    <string name="title_activity_add_show">AddShow</string>
 </resources>
