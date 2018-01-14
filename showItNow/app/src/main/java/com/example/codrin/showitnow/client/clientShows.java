@@ -1,4 +1,4 @@
-package com.example.codrin.showitnow;
+package com.example.codrin.showitnow.client;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.example.codrin.showitnow.utils.localStorage;
+import com.example.codrin.showitnow.utils.storage.DatabaseUtils;
+import com.example.codrin.showitnow.R;
+import com.example.codrin.showitnow.utils.entities.Show;
+import com.example.codrin.showitnow.utils.storage.localStorage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class clientShows extends AppCompatActivity {

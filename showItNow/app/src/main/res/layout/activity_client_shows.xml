@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.codrin.showitnow.clientShows">
+    tools:context="com.example.codrin.showitnow.client.clientShows">
 
     <ListView
         android:id="@+id/showsListClient"

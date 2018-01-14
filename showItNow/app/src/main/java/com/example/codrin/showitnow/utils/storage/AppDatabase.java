@@ -1,12 +1,12 @@
-package com.example.codrin.showitnow;
+package com.example.codrin.showitnow.utils.storage;
 
-import android.arch.persistence.db.SupportSQLiteOpenHelper;
 import android.arch.persistence.room.Database;
-import android.arch.persistence.room.DatabaseConfiguration;
-import android.arch.persistence.room.InvalidationTracker;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+
+import com.example.codrin.showitnow.utils.entities.Show;
+import com.example.codrin.showitnow.utils.entities.ShowDAO;
 
 /**
  * Created by Codrin on 13/01/2018.

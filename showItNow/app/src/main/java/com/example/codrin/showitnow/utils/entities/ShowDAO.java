@@ -1,4 +1,4 @@
-package com.example.codrin.showitnow;
+package com.example.codrin.showitnow.utils.entities;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

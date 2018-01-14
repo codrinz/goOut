@@ -1,6 +1,5 @@
-package com.example.codrin.showitnow;
+package com.example.codrin.showitnow.admin;
 
-import android.arch.persistence.room.util.StringUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +8,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+
+import com.example.codrin.showitnow.utils.storage.DatabaseUtils;
+import com.example.codrin.showitnow.R;
+import com.example.codrin.showitnow.utils.entities.Show;
 
 public class AddShow extends AppCompatActivity {
 boolean dateCompleted = false, nameCompleted = false, spotsCompleted = false;

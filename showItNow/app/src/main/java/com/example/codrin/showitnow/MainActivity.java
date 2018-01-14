@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-import com.example.codrin.showitnow.utils.localStorage;
+import com.example.codrin.showitnow.client.Contact_organizer;
+import com.example.codrin.showitnow.client.clientShows;
+import com.example.codrin.showitnow.admin.AddShow;
+import com.example.codrin.showitnow.admin.Shows;
+import com.example.codrin.showitnow.utils.storage.DatabaseUtils;
+import com.example.codrin.showitnow.utils.storage.localStorage;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.codrin.showitnow;
+package com.example.codrin.showitnow.utils.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

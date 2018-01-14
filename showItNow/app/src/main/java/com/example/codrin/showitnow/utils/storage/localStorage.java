@@ -1,6 +1,6 @@
-package com.example.codrin.showitnow.utils;
+package com.example.codrin.showitnow.utils.storage;
 
-import com.example.codrin.showitnow.Show;
+import com.example.codrin.showitnow.utils.entities.Show;
 
 import java.util.ArrayList;
 import java.util.List;

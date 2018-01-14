@@ -1,4 +1,4 @@
-package com.example.codrin.showitnow;
+package com.example.codrin.showitnow.client;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
-import com.example.codrin.showitnow.utils.localStorage;
+import com.example.codrin.showitnow.R;
+import com.example.codrin.showitnow.utils.entities.Show;
+import com.example.codrin.showitnow.utils.storage.localStorage;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;

@@ -1,10 +1,9 @@
-package com.example.codrin.showitnow;
+package com.example.codrin.showitnow.utils.storage;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.BaseAdapter;
 
-import com.example.codrin.showitnow.utils.localStorage;
+import com.example.codrin.showitnow.utils.entities.Show;
 
 /**
  * Created by Codrin on 13/01/2018.

@@ -1,6 +1,5 @@
-package com.example.codrin.showitnow;
+package com.example.codrin.showitnow.admin;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,9 +7,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import com.example.codrin.showitnow.utils.storage.DatabaseUtils;
+import com.example.codrin.showitnow.R;
+import com.example.codrin.showitnow.utils.entities.Show;
+
 import java.util.Calendar;
-import java.util.Date;
 
 public class ChangeShow extends AppCompatActivity {
     String showName;
