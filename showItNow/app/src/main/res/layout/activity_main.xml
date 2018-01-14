@@ -7,10 +7,10 @@
     tools:context="com.example.codrin.showitnow.MainActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="243dp">
+        android:layout_width="395dp"
+        android:layout_height="587dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,14 +21,21 @@
                 android:id="@+id/showsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Manage Shows"
-                android:onClick="openShows"/>
+                android:onClick="openShows"
+                android:text="Manage Shows" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add shows"
-                android:onClick="openAddShow"/>
+                android:onClick="openAddShow"
+                android:text="Add shows" />
+
+            <Button
+                android:id="@+id/showDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="openShowList"
+                android:text="Show list" />
 
             <Button
                 android:id="@+id/contact"

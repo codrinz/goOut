@@ -9,12 +9,65 @@
     <ScrollView
         android:layout_width="395dp"
         android:layout_height="587dp"
+        android:background="@android:color/background_light"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/addShowButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_red_dark"
+                android:text="add show"
+                android:textColorLink="@android:color/holo_orange_dark"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/showNameAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name of the show"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/allSpotsAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textImeMultiLine|textPersonName"
+                android:text="All spots"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/captionReservedAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reserved Spots"
+                android:visibility="invisible" />
+
+            <NumberPicker
+                android:id="@+id/occupiedSpotsAdd"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:visibility="invisible" />
+
+            <DatePicker
+                android:id="@+id/datePickerAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/holo_orange_dark"
+                android:theme="@style/AlertDialog.AppCompat.Light" />
+
+        </LinearLayout>
+
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

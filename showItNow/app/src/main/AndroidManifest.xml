@@ -22,8 +22,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Shows" />
         <activity android:name=".ChangeShow" />
-        <activity android:name=".AddShow"></activity>
-
+        <activity android:name=".AddShow" />
+        <activity android:name=".showsDetails" />
+        <activity android:name=".clientShows"></activity>
     </application>
 
 </manifest>

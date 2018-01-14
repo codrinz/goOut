@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.BaseAdapter;
 
+import com.example.codrin.showitnow.utils.localStorage;
+
 /**
  * Created by Codrin on 13/01/2018.
  */
@@ -14,17 +16,17 @@ public void getAll(final Context context){
     new AsyncTask<Void,Void,Void>(){
         @Override
         protected Void doInBackground(Void...voids) {
-            Shows.showsArray = AppDatabase.getAppDatabase(context).showDAO().getAll();
+            localStorage.showsArray = AppDatabase.getAppDatabase(context).showDAO().getAll();
             return null;
         }
     }.execute();
 }
 public void insert(final Context context, final Show show){
-    if(Shows.getShowByName(show.getShowName())!=null) {
+    if(localStorage.getShowByName(show.getShowName())!=null) {
         System.out.println("[ERROR] tried to add a show already existing");
         return;
     }
-    Shows.showsArray.add(show);
+    localStorage.showsArray.add(show);
     new AsyncTask<Void,Void,Void>(){
         @Override
         protected Void doInBackground(Void...voids) {
@@ -36,7 +38,7 @@ public void insert(final Context context, final Show show){
     }.execute();
 }
 public void delete(final Context context, final Show show){
-    Shows.showsArray.remove(show);
+    localStorage.showsArray.remove(show);
     new AsyncTask<Void,Void,Void>(){
         @Override
         protected Void doInBackground(Void...voids) {
@@ -47,8 +49,8 @@ public void delete(final Context context, final Show show){
     }.execute();
 }
 public void update(final Context context,final Show oldShow, final Show newShow){
-    Shows.showsArray.remove(oldShow);
-    Shows.showsArray.add(newShow);
+    localStorage.showsArray.remove(oldShow);
+    localStorage.showsArray.add(newShow);
     new AsyncTask<Void,Void,Void>(){
         @Override
         protected Void doInBackground(Void...voids) {
@@ -60,4 +62,14 @@ public void update(final Context context,final Show oldShow, final Show newShow)
         }
     }.execute();
 }
+
+    public void getAllClient(final Context applicationContext) {
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void doInBackground(Void...voids) {
+                localStorage.showsArray = AppDatabase.getAppDatabase(applicationContext).showDAO().getAll();
+                return null;
+            }
+        }.execute();
+    }
 }

@@ -10,11 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.example.codrin.showitnow.utils.localStorage;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Shows extends AppCompatActivity {
-    public static List<Show> showsArray = new ArrayList<>();
+    public static List<Show> showsArray = localStorage.showsArray;
     public static ListView listViewStatic;
     private DatabaseUtils db = new DatabaseUtils();
 
@@ -26,11 +28,8 @@ public class Shows extends AppCompatActivity {
         db.getAll(getApplicationContext());
 
         if(Shows.showsArray.isEmpty()){
-            db.insert(getApplicationContext(),new Show("test1",2,7,50,50));
+            db.insert(getApplicationContext(),new Show("test1",2,7,50,100));
         }
-
-
-
         ArrayAdapter<Show> showsAdapter = new ArrayAdapter<Show>(this,
                 android.R.layout.simple_list_item_1, showsArray);
         ListView listView = (ListView) findViewById(R.id.showsList);

@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.codrin.showitnow.utils.localStorage;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        localStorage localStorage = new localStorage();
+        DatabaseUtils db = new DatabaseUtils();
+        db.getAll(getApplicationContext());
     }
 
     public void openContact(View view) {
@@ -26,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openAddShow(View view){
         Intent intent = new Intent (this, AddShow.class);
+        startActivity(intent);
+    }
+
+    public void openShowList(View view){
+        Intent intent = new Intent (this, clientShows.class);
         startActivity(intent);
     }
 }
