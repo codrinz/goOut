@@ -1,4 +1,5 @@
 const Koa = require('koa');
+const mysql = require('mysql');
 const app = new Koa();
 const server = require('http').createServer(app.callback());
 const WebSocket = require('ws');
@@ -6,6 +7,14 @@ const wss = new WebSocket.Server({server});
 const Router = require('koa-router');
 const cors = require('koa-cors');
 const bodyparser = require('koa-bodyparser');
+
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'admin',
+    password : 'admin',
+    database : 'showItNow'
+  });
+connection.connect();
 
 app.use(bodyparser());
 app.use(cors());
@@ -16,7 +25,14 @@ app.use(async function (ctx, next) {
     console.log(`${ctx.method} ${ctx.url} ${ctx.response.status} - ${ms}ms`);
 });
 
-const shows = [];
+var shows = []
+
+connection.query("Select * from shows", function (error, results, fields) {
+    if (error) throw error;
+    shows = results;
+  });
+  
+  
 
 const router = new Router();
 
@@ -32,6 +48,37 @@ router.get('/testConnection',ctx => {
     ctx.response.status = 200;
 });
 
+router.get('/getAll',ctx => {
+    ctx.response.body = shows;
+    ctx.response.status = 200;
+}
+);
+
+router.post('/delete', ctx => {
+    const headers = ctx.request.body;
+    console.log("body: " + JSON.stringify(headers));
+    const showName = headers.showName;
+    if (typeof showName != 'undefined') {
+        const index = shows.findIndex(show => show.showName === showName);
+        if (index === -1) {
+            ctx.response.body = {text: 'Invalid name'};
+            ctx.response.status = 404;
+        } else {
+            broadcast({
+                operation: 'delete',
+                show: shows[index]
+            })
+            shows.splice(index, 1);
+            ctx.response.body = {text: 'The show was deleted'};
+            ctx.response.status = 200;
+        }
+    } else {
+        ctx.response.body = {text: 'Name missing'};
+        ctx.response.status = 404;
+    }
+}
+);
+
 router.post('/add', ctx => {
     const headers = ctx.request.body;
     console.log("body: " + JSON.stringify(headers));
@@ -42,7 +89,7 @@ router.post('/add', ctx => {
     const freeSpots = headers.freeSpots;
     const allSpots = headers.allSpots;
     if(typeof showName != 'undefined' || typeof day != 'undefined' || typeof month != 'undefined' || typeof freeSpots != 'undefined' || typeof allSpots != 'undefined'){
-        const index = shows.findIndex(show => show.sid === sid);
+        const index = shows.findIndex(show => show.showName === showName);
         if(index === -1){
             let show = {
                 sid,
@@ -52,8 +99,21 @@ router.post('/add', ctx => {
                 freeSpots,
                 allSpots
             };
-            shows.push(show);
-            broadcast(show);
+            
+            connection.query("INSERT INTO shows(showName, day, month, freeSpots, allSpots) VALUES (?,?,?,?,?)",[showName,
+                    day,
+                    month,
+                    freeSpots,
+                    allSpots], function (error, results, fields) {
+                    if (error) throw error;
+                  });
+            
+            
+            broadcast({
+                operation: 'insert',
+                show: show
+            }
+            );
             ctx.response.body = show;
             ctx.response.status = 200;
         }else{
@@ -65,7 +125,9 @@ router.post('/add', ctx => {
         ctx.response.status = 404;
     }
 }
-)
+);
+
+
 
 app.use(router.routes());
 app.use(router.allowedMethods());

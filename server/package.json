@@ -14,7 +14,9 @@
     "koa-bodyparser": "^2.2.0",
     "koa-convert": "^1.2.0",
     "koa-cors": "^0.0.16",
+    "koa-mysql": "^1.0.3",
     "koa-router": "^7.1.0",
+    "my-sql": "^1.2.9",
     "phaser": "^2.6.2",
     "ws": "^1.1.1"
   },
