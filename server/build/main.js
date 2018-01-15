@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,15 +80,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var Koa = __webpack_require__(3);
-var mysql = __webpack_require__(7);
+var Koa = __webpack_require__(4);
+var mysql = __webpack_require__(8);
 var app = new Koa();
 var server = __webpack_require__(2).createServer(app.callback());
-var WebSocket = __webpack_require__(9);
+var WebSocket = __webpack_require__(10);
 var wss = new WebSocket.Server({ server: server });
-var Router = __webpack_require__(6);
-var cors = __webpack_require__(5);
-var bodyparser = __webpack_require__(4);
+var Router = __webpack_require__(7);
+var cors = __webpack_require__(6);
+var bodyparser = __webpack_require__(5);
+var jwt = __webpack_require__(3);
+var secret = "xxx";
 
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -131,10 +133,14 @@ app.use(function () {
 
 var shows = [];
 
-connection.query("Select * from shows", function (error, results, fields) {
-    if (error) throw error;
-    shows = results;
-});
+function cacheDB() {
+    connection.query("Select * from shows", function (error, results, fields) {
+        if (error) throw error;
+        shows = results;
+    });
+}
+
+cacheDB();
 
 var router = new Router();
 
@@ -158,6 +164,13 @@ router.get('/getAll', function (ctx) {
 
 router.post('/delete', function (ctx) {
     var headers = ctx.request.body;
+    var token = headers.token;
+    var decodedToken = jwt.decode(token, secret);
+    if (decodedToken.user_type !== 0) {
+        ctx.response.body = { text: 'Not authorized' };
+        ctx.response.status = 400;
+        return;
+    }
     console.log("body: " + JSON.stringify(headers));
     var showName = headers.showName;
     if (typeof showName != 'undefined') {
@@ -172,9 +185,13 @@ router.post('/delete', function (ctx) {
                 operation: 'delete',
                 show: shows[index]
             });
-            shows.splice(index, 1);
+            connection.query("Delete from shows where showName = ?", [showName], function (error, results, fields) {
+                if (error) throw error;
+                shows = results;
+            });
             ctx.response.body = { text: 'The show was deleted' };
             ctx.response.status = 200;
+            cacheDB();
         }
     } else {
         ctx.response.body = { text: 'Name missing' };
@@ -182,8 +199,40 @@ router.post('/delete', function (ctx) {
     }
 });
 
+router.post('/login', function (ctx) {
+    var headers = ctx.request.body;
+    console.log("body: " + JSON.stringify(headers));
+    var rUser = headers.user;
+    var password = headers.user;
+    connection.querry("Select * FROM accounts WHERE user = ? and password = ?", [user, password], function (error, results, fields) {
+        if (error) throw error;
+        if (results.length != 0) {
+            var payload = {
+                username: rUser,
+                user_type: results[0].user_type
+            };
+
+            ctx.response.body = {
+                token: jwt.encode(payload, secret),
+                user_type: results[0].user_type
+            };
+            ctx.response.status = 200;
+        } else {
+            ctx.response.status = 400;
+            ctx.response.body = "Invalid user";
+        }
+    });
+});
+
 router.post('/add', function (ctx) {
     var headers = ctx.request.body;
+    var token = headers.token;
+    var decodedToken = jwt.decode(token, secret);
+    if (decodedToken.user_type !== 0) {
+        ctx.response.body = { text: 'Not authorized' };
+        ctx.response.status = 400;
+        return;
+    }
     console.log("body: " + JSON.stringify(headers));
     var sid = headers.sid;
     var showName = headers.showName;
@@ -215,6 +264,7 @@ router.post('/add', function (ctx) {
             });
             ctx.response.body = show;
             ctx.response.status = 200;
+            cacheDB();
         } else {
             ctx.response.body = { text: 'The show already exists' };
             ctx.response.status = 404;
@@ -234,7 +284,7 @@ server.listen(3000);
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(8);
+module.exports = __webpack_require__(9);
 
 
 /***/ },
@@ -247,46 +297,52 @@ module.exports = require("http");
 /* 3 */
 /***/ function(module, exports) {
 
-module.exports = require("koa");
+module.exports = require("jwt-simple");
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-bodyparser");
+module.exports = require("koa");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-cors");
+module.exports = require("koa-bodyparser");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-router");
+module.exports = require("koa-cors");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-module.exports = require("mysql");
+module.exports = require("koa-router");
 
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("mysql");
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-module.exports = require("ws");
+module.exports = require("regenerator-runtime");
 
 /***/ },
 /* 10 */
+/***/ function(module, exports) {
+
+module.exports = require("ws");
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(0);
